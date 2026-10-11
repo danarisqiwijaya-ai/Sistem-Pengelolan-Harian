@@ -1,0 +1,5 @@
+2026-10-01;Makanan;Makan siang;25000
+2026-10-02;Transportasi;Ojek;15000
+2026-10-03;Makanan;Makan malam;30000
+2026-10-04;Kuliah;Print tugas;10000
+2026-10-05;Internet;Paket data;50000
