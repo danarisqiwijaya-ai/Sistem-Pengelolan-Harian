@@ -1,0 +1,62 @@
+from .models import Pengeluaran
+
+
+def buat_file_data(nama_file):
+    # Membuat file baru tanpa menimpa file yang sudah ada.
+    try:
+        with open(nama_file, "x") as file:
+            file.write("")
+
+        return True
+
+    except FileExistsError:
+        print("File data sudah tersedia.")
+        return False
+
+
+def tambah_pengeluaran(nama_file, pengeluaran):
+    # Menambahkan data baru ke akhir file.
+    with open(nama_file, "a") as file:
+        file.write(pengeluaran.to_line() + "\n")
+
+
+def baca_data(nama_file):
+    # Membaca data satu per satu dari file.
+    data = []
+
+    try:
+        with open(nama_file, "r") as file:
+            for baris in file:
+                try:
+                    bagian = baris.strip().split(";")
+
+                    if len(bagian) != 4:
+                        raise ValueError("Format data tidak lengkap.")
+
+                    tanggal, kategori, keterangan, nominal = bagian
+
+                    data.append(
+                        Pengeluaran(
+                            tanggal,
+                            kategori,
+                            keterangan,
+                            int(nominal)
+                        )
+                    )
+
+                except ValueError:
+                    print(
+                        "Data tidak valid dan dilewati:",
+                        baris.strip()
+                    )
+
+    except FileNotFoundError:
+        print("File data tidak ditemukan.")
+
+    return data
+
+
+def tulis_laporan(nama_file, laporan):
+    # Menulis laporan ke file.
+    with open(nama_file, "w") as file:
+        file.write(laporan)
